@@ -1,0 +1,25 @@
+name: NoPayStation automated updates
+
+on:
+    schedule:
+        # Each day at 5:00PM
+        - cron: '0 17 * * *'
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+    releaser:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🛎️ Checkout
+              uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                python-version: '3.12' 
+            - name: 🚧 Installation
+              run: |
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+            - name: 🔨 Find new KMEHR labels
+              run: |
+                python convert_nopaystation_to_pkgi.py
