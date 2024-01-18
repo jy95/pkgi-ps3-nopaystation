@@ -45,7 +45,7 @@ downloads = {
 # Title ID	Region	Name	PKG direct link	RAP	Content ID	Last Modification Date	Download .RAP file	File Size	SHA256
 def format_row(row, content_type):
     content_id = row['Content ID']
-    content_type = '1'  # Set type to 1 as constant
+    content_type = content_type  # Set type
     name = f"{row['Name']} ({row['Region']})"
     description = ''  # Description is empty
     rap = row['RAP'] if 'RAP' in row else ''  # Leave empty if rap is not needed
@@ -62,6 +62,7 @@ def format_row(row, content_type):
 def process_entries(item):
     input_file = INPUT_FOLDER / item["input"]
     output_file = OUTPUT_FOLDER / item["output"]
+    content_type = item["content_type"]
     
     # Download file and store it in file
     response = requests.get(item["download_link"], stream=True)
@@ -80,7 +81,7 @@ def process_entries(item):
         
         # Process and write the remaining rows
         for row in tsvreader:
-            formatted_row = format_row(row)
+            formatted_row = format_row(row, content_type)
             csvwriter.writerow(formatted_row)
 
 for entry in downloads.items():
