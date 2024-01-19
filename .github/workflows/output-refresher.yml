@@ -20,6 +20,11 @@ jobs:
               run: |
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
-            - name: 🔨 Find new KMEHR labels
+            - name: 🔨 Find NoPayStation updates
               run: |
                 python convert_nopaystation_to_pkgi.py
+            - name: 💅 Create Pull Request
+              uses: peter-evans/create-pull-request@v5
+              with:
+                title: "[auto-updater] New NoPayStation updates"
+                draft: true
