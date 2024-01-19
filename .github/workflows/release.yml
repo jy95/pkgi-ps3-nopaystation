@@ -25,5 +25,6 @@ jobs:
                 artifacts: "dbformat.txt,output/*.csv"
                 allowUpdates: "true"
                 replacesArtifacts: "true"
+                tag: "nopaystation_${{ steps.date.outputs.NOW }}"
                 body: "NoPayStation - release ${{ steps.date.outputs.NOW }}"
                 name: "pkgi-ps3-nopaystation ${{ steps.date.outputs.NOW }}"
