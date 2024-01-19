@@ -39,6 +39,36 @@ downloads = {
         "content_type": "5",
         "download_link": "https://nopaystation.com/tsv/PS3_DEMOS.tsv"
     },
+    "PS3_GAMES (pending)": {
+        "input": "pending_PS3_GAMES.tsv",
+        "output": "pkgi_games_pending.csv",
+        "content_type": "1",
+        "download_link": "https://nopaystation.com/tsv/pending/PS3_GAMES.tsv"
+    },
+    "PS3_DLCS (pending)": {
+        "input": "pending_PS3_DLCS.tsv",
+        "output": "pkgi_dlcs_pending.csv",
+        "content_type": "2",
+        "download_link": "https://nopaystation.com/tsv/pending/PS3_DLCS.tsv"
+    },
+    "PS3_THEMES (pending)": {
+        "input": "pending_PS3_THEMES.tsv",
+        "output": "pkgi_themes_pending.csv",
+        "content_type": "3",
+        "download_link": "https://nopaystation.com/tsv/pending/PS3_THEMES.tsv"
+    },
+    "PS3_AVATARS (pending)": {
+        "input": "pending_PS3_AVATARS.tsv",
+        "output": "pkgi_avatars_pending.csv",
+        "content_type": "4",
+        "download_link": "https://nopaystation.com/tsv/pending/PS3_AVATARS.tsv"
+    },
+    "PS3_DEMOS (pending)": {
+        "input": "pending_PS3_DEMOS.tsv",
+        "output": "pkgi_demos_pending.csv",
+        "content_type": "5",
+        "download_link": "https://nopaystation.com/tsv/pending/PS3_DEMOS.tsv"
+    },
 }
 
 # Create a function to format a row as per your specifications

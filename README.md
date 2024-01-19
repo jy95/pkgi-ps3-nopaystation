@@ -18,3 +18,16 @@ url_avatars https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/late
 ```
 3. Next time you open the app, you'll have an additional menu option Triangle called Refresh. When you select it, the local databases will be syncronized with the defined URLs.
 4. Enjoy
+
+If you prefer to use the Pending TSV Files instead, put the suffix `_pending` before the `.csv` extension like that in `config.txt` :
+
+```txt
+language fr
+filter EUR
+dl_mode_background 1
+url_games https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_games_pending.csv
+url_dlcs https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_dlcs_pending.csv
+url_demo https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_demos_pending.csv
+url_themes https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_themes_pending.csv
+url_avatars https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_avatars_pending.csv
+```
