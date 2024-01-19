@@ -16,4 +16,5 @@ url_demo https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/
 url_themes https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_themes.csv
 url_avatars https://github.com/jy95/pkgi-ps3-nopaystation/releases/download/latest/pkgi_avatars.csv
 ```
-3. Enjoy
+3. Next time you open the app, you'll have an additional menu option Triangle called Refresh. When you select it, the local databases will be syncronized with the defined URLs.
+4. Enjoy
