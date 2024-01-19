@@ -23,6 +23,9 @@ jobs:
             - name: 🔨 Find NoPayStation updates
               run: |
                 python convert_nopaystation_to_pkgi.py
+            - name: 🤖 Generate changelog
+              run: |
+                python convert_nopaystation_to_pkgi.py
             - name: 💅 Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:

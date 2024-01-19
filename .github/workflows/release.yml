@@ -28,5 +28,5 @@ jobs:
                 allowUpdates: "true"
                 replacesArtifacts: "true"
                 tag: "latest"
-                body: "NoPayStation - release ${{ steps.date.outputs.NOW }}"
+                bodyFile: "CHANGELOG.md"
                 name: "pkgi-ps3-nopaystation ${{ steps.date.outputs.NOW }}"
