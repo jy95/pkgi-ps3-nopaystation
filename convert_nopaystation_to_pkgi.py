@@ -11,31 +11,31 @@ OUTPUT_FOLDER = Path("output")
 downloads = {
     "PS3_GAMES": {
         "input": "PS3_GAMES.tsv",
-        "output": "pkgi_games.txt",
+        "output": "pkgi_games.csv",
         "content_type": "1",
         "download_link": "https://nopaystation.com/tsv/PS3_GAMES.tsv"
     },
     "PS3_DLCS": {
         "input": "PS3_DLCS.tsv",
-        "output": "pkgi_dlcs.txt",
+        "output": "pkgi_dlcs.csv",
         "content_type": "2",
         "download_link": "https://nopaystation.com/tsv/PS3_DLCS.tsv"
     },
     "PS3_THEMES": {
         "input": "PS3_THEMES.tsv",
-        "output": "pkgi_themes.txt",
+        "output": "pkgi_themes.csv",
         "content_type": "3",
         "download_link": "https://nopaystation.com/tsv/PS3_THEMES.tsv"
     },
     "PS3_AVATARS": {
         "input": "PS3_AVATARS.tsv",
-        "output": "pkgi_avatars.txt",
+        "output": "pkgi_avatars.csv",
         "content_type": "4",
         "download_link": "https://nopaystation.com/tsv/PS3_AVATARS.tsv"
     },
     "PS3_DEMOS": {
         "input": "PS3_DEMOS.tsv",
-        "output": "pkgi_demos.txt",
+        "output": "pkgi_demos.csv",
         "content_type": "5",
         "download_link": "https://nopaystation.com/tsv/PS3_DEMOS.tsv"
     },
