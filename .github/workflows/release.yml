@@ -22,7 +22,7 @@ jobs:
             - uses: ncipollo/release-action@v1.13.0
               name: 🤖 Create release on Github
               with:
-                artifacts: "output/*.csv"
+                artifacts: "dbformat.txt,output/*.csv"
                 allowUpdates: "true"
                 replacesArtifacts: "true"
                 body: "NoPayStation - release ${{ steps.date.outputs.NOW }}"
