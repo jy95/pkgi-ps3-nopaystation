@@ -30,4 +30,5 @@ jobs:
               uses: peter-evans/create-pull-request@v5
               with:
                 title: "[auto-updater] New NoPayStation updates"
+                "body-path": "CHANGELOG.md"	
                 draft: true
