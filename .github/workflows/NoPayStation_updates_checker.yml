@@ -31,4 +31,4 @@ jobs:
               with:
                 title: "[auto-updater] New NoPayStation updates"
                 "body-path": "CHANGELOG.md"	
-                draft: true
+                draft: false
