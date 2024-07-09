@@ -1,2 +1,2 @@
 requests==2.32.3
-py-markdown-table==0.4.0
+py-markdown-table==1.0.0
