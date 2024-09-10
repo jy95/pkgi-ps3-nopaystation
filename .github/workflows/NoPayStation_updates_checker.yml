@@ -28,7 +28,7 @@ jobs:
               uses: tj-actions/changed-files@v45
               with:
                   files: |
-                      input/**
+                      input/**  
                       output/**
             - name: 🤖 Generate changelog
               if: steps.changed-files.outputs.any_modified == 'true'
