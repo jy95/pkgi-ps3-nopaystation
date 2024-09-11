@@ -9,7 +9,7 @@ on:
       override:
         description: 'Override modified files check'
         required: false
-        default: 'false'
+        default: 'true'
 jobs:
   check_updates:
     runs-on: ubuntu-latest
