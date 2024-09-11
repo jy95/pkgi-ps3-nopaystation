@@ -10,7 +10,6 @@ on:
         description: 'Override modified files check'
         required: false
         default: 'false'
-
 jobs:
   check_updates:
     runs-on: ubuntu-latest
@@ -34,6 +33,10 @@ jobs:
           files: |
             input/**  
             output/**
+      - name: "🛠️ Debug: Print changed-files outputs"
+        run: |
+          echo "Any modified: ${{ steps.changed-files.outputs.any_modified }}"
+          echo "Any changed: ${{ steps.changed-files.outputs.any_changed }}"   
       - name: 🤖 Generate changelog
         if: ${{ steps.changed-files.outputs.any_modified == 'true' || github.event.inputs.override == 'true' }}
         run: |
