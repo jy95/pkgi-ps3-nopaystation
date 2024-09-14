@@ -36,12 +36,12 @@ jobs:
         run: |
           echo "${{ toJson(steps.changed-files.outputs) }}" 
       - name: 🤖 Generate changelog
-        if: ${{ steps.changed-files.outputs.any_modified == 'true' || github.event.inputs.override == 'true' }}
+        #if: ${{ steps.changed-files.outputs.any_modified == 'true' || github.event.inputs.override == 'true' }}
         run: |
           python generate_changelog.py
       - name: 💅 Create Pull Request
         uses: peter-evans/create-pull-request@v7
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' || github.event.inputs.override == 'true' }}
+        #if: ${{ steps.changed-files.outputs.any_changed == 'true' || github.event.inputs.override == 'true' }}
         with:
           title: "[auto-updater] New NoPayStation updates"
           body-path: "CHANGELOG.md"
