@@ -5,11 +5,6 @@ on:
     # Each day at 5:00 PM
     - cron: '0 17 * * *'
   workflow_dispatch:
-    inputs:
-      override:
-        description: 'Override modified files check'
-        required: false
-        default: 'true'
 jobs:
   check_updates:
     runs-on: ubuntu-latest
@@ -26,22 +21,11 @@ jobs:
       - name: 🔨 Find NoPayStation updates
         run: |
           python convert_nopaystation_to_pkgi.py
-      - name: ⚙️ List all changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v45.0.1
-        with:
-          files: |
-            {input,output}/**
-      - name: "🛠️ Debug: Print tj-actions/changed-files outputs"
-        run: |
-          echo "${{ toJson(steps.changed-files.outputs) }}" 
       - name: 🤖 Generate changelog
-        #if: ${{ steps.changed-files.outputs.any_modified == 'true' || github.event.inputs.override == 'true' }}
         run: |
           python generate_changelog.py
       - name: 💅 Create Pull Request
         uses: peter-evans/create-pull-request@v7
-        #if: ${{ steps.changed-files.outputs.any_changed == 'true' || github.event.inputs.override == 'true' }}
         with:
           title: "[auto-updater] New NoPayStation updates"
           body-path: "CHANGELOG.md"
