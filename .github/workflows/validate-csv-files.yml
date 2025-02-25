@@ -1,0 +1,37 @@
+name: Validate CSV Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install CSV validator
+        run: |
+          pip install pandas
+
+      - name: Validate CSV files
+        run: |
+          for file in output/*.csv; do
+            python -c "import pandas as pd; import sys; 
+            file = '$file'
+            try:
+                df = pd.read_csv(file)
+                print(f'Valid CSV: {file}')
+            except Exception as e:
+                print(f'Invalid CSV: {file}')
+                print(e)
+                sys.exit(1)"
+          done
