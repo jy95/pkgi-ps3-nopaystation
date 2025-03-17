@@ -2,8 +2,6 @@ name: Validate CSV Files
 
 on:
   push:
-    branches:
-      - main
   pull_request:
 
 jobs:
