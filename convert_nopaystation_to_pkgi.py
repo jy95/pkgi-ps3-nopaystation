@@ -2,12 +2,14 @@ import requests
 import csv
 from pathlib import Path
 
-# Input / Output folder
+# --- Configuration ---
+# Define the input and output folders for the files.
 INPUT_FOLDER = Path("input")
 OUTPUT_FOLDER = Path("output")
 
-# define the downloads
-# content_type : https://github.com/bucanero/pkgi-ps3?tab=readme-ov-file#content-types
+# A dictionary defining all the downloads and their configurations.
+# Each entry specifies the input TSV file, the desired output CSV file,
+# the content type code, and the download link.
 downloads = {
     "PS3_GAMES": {
         "input": "PS3_GAMES.tsv",
@@ -71,53 +73,102 @@ downloads = {
     },
 }
 
-# Create a function to format a row as per your specifications
-# Title ID	Region	Name	PKG direct link	RAP	Content ID	Last Modification Date	Download .RAP file	File Size	SHA256
-def format_row(row, content_type):
-    content_id = row['Content ID']
-    content_type = content_type  # Set type
-    name = f"{row['Name']} ({row['Region']})"
-    description = ''  # Description is empty
-    rap = row['RAP'] if 'RAP' in row else ''  # Leave empty if rap is not needed
-    url = row['PKG direct link']
-    size = row['File Size'] if 'File Size' in row else '0'  # Set size to 0 if unknown
-    checksum = row.get('SHA256', '')  # Leave empty if checksum is not needed
-    date = row['Last Modification Date']  # Extract DATE from "Last Modification Date"
-    region = row['Region']  # Extract REGION from "Region"
-    
+# --- Functions ---
+
+def format_row(row: dict, content_type: str) -> list:
+    """
+    Formats a single row from the TSV data into the required CSV format.
+
+    Args:
+        row: A dictionary representing a single row from the TSV file.
+        content_type: The content type code for the item.
+
+    Returns:
+        A list of strings representing the formatted row.
+    """
+    # The required output format is:
+    # contentid;type;name;description;rap;url;size;checksum;date;region
+    # Note: Using .get() with a default value prevents a KeyError if a column is missing.
+    content_id = row.get('Content ID', '')
+    name = f"{row.get('Name', '')} ({row.get('Region', '')})"
+    description = ''
+    rap = row.get('RAP', '')
+    url = row.get('PKG direct link', '')
+    size = row.get('File Size', '0')
+    checksum = row.get('SHA256', '')
+    date = row.get('Last Modification Date', '')
+    region = row.get('Region', '')
+
     formatted_row = [content_id, content_type, name, description, rap, url, size, checksum, date, region]
     return formatted_row
 
-# process a given item
-def process_entries(item):
+def process_entry(item: dict):
+    """
+    Downloads a TSV file and converts it to a formatted CSV file.
+
+    Args:
+        item: A dictionary containing the configuration for a single download.
+    """
     input_file = INPUT_FOLDER / item["input"]
     output_file = OUTPUT_FOLDER / item["output"]
     content_type = item["content_type"]
-    
-    # Download file and store it in file
-    response = requests.get(item["download_link"], stream=True)
-    
-    with open(input_file, 'wb') as out_file:
-         for chunk in response.iter_content(chunk_size=1024):
-            out_file.write(chunk)
+    download_link = item["download_link"]
 
-    # Read the TSV file and write to the CSV file with the specified format
-    with open(input_file, 'r', newline='', encoding='utf-8') as tsvfile, open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
-        tsvreader = csv.DictReader(tsvfile, delimiter='\t')
-        csvwriter = csv.writer(csvfile, delimiter=';')
-        
-        # Write the header row to the CSV file
-        # csvwriter.writerow(['contentid', 'type', 'name', 'description', 'rap', 'url', 'size', 'checksum', 'date', 'region'])
-        
-        # Process and write the remaining rows
-        for row in tsvreader:
-            formatted_row = format_row(row, content_type)
-            csvwriter.writerow(formatted_row)
-
-for entry in downloads.items():
-    (entryName, entryObj) = entry
+    print(f"  Downloading from '{download_link}'...")
     try:
-        print(f"'{entryName}' - Processing ...")
-        process_entries(entryObj)
-    except Exception as error:
-        print("An exception occurred:", error)
+        response = requests.get(download_link, stream=True)
+        # Raise an HTTPError if the status code is not 200 (OK)
+        response.raise_for_status()
+
+        # Download the file in chunks to be memory-efficient
+        with open(input_file, 'wb') as out_file:
+            for chunk in response.iter_content(chunk_size=8192):
+                out_file.write(chunk)
+
+        print(f"  Downloaded to '{input_file}'. Converting to CSV...")
+
+    except requests.exceptions.RequestException as e:
+        print(f"  Failed to download file: {e}")
+        return  # Exit the function if download fails
+
+    try:
+        # Read the TSV file and write to the CSV file with the specified format
+        with open(input_file, 'r', newline='', encoding='utf-8') as tsvfile, \
+             open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+            
+            # Use DictReader for TSV, specifying the tab delimiter
+            tsvreader = csv.DictReader(tsvfile, delimiter='\t')
+            # Use writer for CSV, specifying the semicolon delimiter
+            csvwriter = csv.writer(csvfile, delimiter=';')
+
+            # Define and write the header row for the output CSV file.
+            #header = ['contentid', 'type', 'name', 'description', 'rap', 'url', 'size', 'checksum', 'date', 'region']
+            #csvwriter.writerow(header)
+
+            # Process each row and write the formatted data to the CSV
+            for row in tsvreader:
+                formatted_row = format_row(row, content_type)
+                csvwriter.writerow(formatted_row)
+        
+        print(f"  Conversion complete. Saved to '{output_file}'.")
+
+    except (IOError, csv.Error) as e:
+        print(f"  Failed to process file: {e}")
+
+
+# --- Main Execution ---
+
+if __name__ == "__main__":
+    # Create the input and output directories if they don't exist
+    # Using `exist_ok=True` prevents an error if the directories already exist.
+    INPUT_FOLDER.mkdir(exist_ok=True)
+    OUTPUT_FOLDER.mkdir(exist_ok=True)
+
+    print("Starting TSV to PKGi CSV conversion process...")
+    
+    # Iterate over each item in the downloads dictionary and process it
+    for entry_name, entry_data in downloads.items():
+        print(f"\nProcessing '{entry_name}'...")
+        process_entry(entry_data)
+    
+    print("\nAll downloads and conversions are complete.")
