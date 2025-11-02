@@ -1,8 +1,8 @@
-NoPayStation - release 31 October 2025
+NoPayStation - release 02 November 2025
 
 |  Dataset  |Valid entries|Pending entries|
 |-----------|-------------|---------------|
-| PS3_GAMES |     8140    |      1297     |
+| PS3_GAMES |     8140    |      1298     |
 |  PS3_DLCS |    11987    |     11140     |
 | PS3_THEMES|     939     |      759      |
 |PS3_AVATARS|     1605    |      1527     |
