@@ -1,4 +1,4 @@
-NoPayStation - release 21 November 2025
+NoPayStation - release 22 November 2025
 
 |  Dataset  |Valid entries|Pending entries|
 |-----------|-------------|---------------|
