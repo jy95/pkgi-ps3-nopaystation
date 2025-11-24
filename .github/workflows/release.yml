@@ -17,7 +17,7 @@ jobs:
           contents: write
         steps:
             - name: 🛎️ Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
             - name: 📅 Get current date
               id: date
               run: echo "NOW=$(date +'%d-%m-%Y')" >> $GITHUB_OUTPUT
