@@ -1,8 +1,8 @@
-NoPayStation - release 27 February 2026
+NoPayStation - release 28 February 2026
 
 |  Dataset  |Valid entries|Pending entries|
 |-----------|-------------|---------------|
-| PS3_GAMES |     8146    |      1328     |
+| PS3_GAMES |     8146    |      1332     |
 |  PS3_DLCS |    12005    |     11553     |
 | PS3_THEMES|     934     |      806      |
 |PS3_AVATARS|     1605    |      1783     |
