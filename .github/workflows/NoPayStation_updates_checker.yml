@@ -30,6 +30,8 @@ jobs:
         with:
           title: "[auto-updater] New NoPayStation updates"
           body-path: "CHANGELOG.md"
+          labels: |
+            automerge
           draft: false
       - name: 🔄 Enable Auto-Merge
         uses: peter-evans/enable-pull-request-automerge@v3
